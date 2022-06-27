@@ -1,16 +1,16 @@
 
 
+class User{
+  String login;
+  String gmail;
+  String password;
 
-// class SignUpPage extends StatefulWidget {
-//   const SignUpPage({Key? key}) : super(key: key);
-//
-//   @override
-//   State<SignUpPage> createState() => _SignUpPageState();
-// }
-//
-// class _SignUpPageState extends State<SignUpPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container();
-//   }
-// }
+  User({required this.login, required this.gmail, required this.password});
+}
+
+// final User login = User(
+//   login:
+// );
+
+
+

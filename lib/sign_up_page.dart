@@ -24,7 +24,7 @@ class SignUpPage extends StatelessWidget {
           // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              height: 147,
+              height: 170,
               width: double.infinity,
               child: Align(
                   child: Row(
@@ -49,6 +49,7 @@ class SignUpPage extends StatelessWidget {
                   )),
               decoration: BoxDecoration(
                 image: DecorationImage(
+                  fit: BoxFit.cover,
                   image: AssetImage("assets/images/Rectangle 1.png"),
                 ),
               ),
@@ -87,6 +88,7 @@ class SignUpPage extends StatelessWidget {
                           right: 20,
                         ),
                         child: const TextField(
+                          obscureText: true,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: "Enter your password",

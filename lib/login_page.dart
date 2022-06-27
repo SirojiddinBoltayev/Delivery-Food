@@ -1,24 +1,53 @@
+import 'dart:html';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:food_shop/home_page.dart';
+
 // import 'package:food_shop/model/login_data.dart';
 import 'package:food_shop/sign_up_page.dart';
 
+import 'model/login_data.dart';
+
+
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
-
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
-// class LoginData{
-//   String login;
-//   String password;
-//   int id;
-//   LoginData({required this.id, required this.login,required this.password});
-//
-//   LoginData({login: "", password: "", id: 0});
-//
-// }
+
 class _LoginPageState extends State<LoginPage> {
+  final User signin = User(
+    login: "",
+    gmail: '',
+    password: '',
+  );
+
+  final _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    // other dispose methods
+    super.dispose();
+    _controller.dispose();
+  }
+
+  @override
+  void initState() {
+
+    _controller.addListener(_handleText);
+    super.initState();
+    // other code here
+  }
+  _handleText() {
+    // do what you want with the text, for example:
+
+    print(_controller.text);
+
+  }
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size.width;
@@ -28,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         width: screenSize,
         height: screenHeight,
-        decoration: BoxDecoration(
+        decoration:  const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/bg-image.png"),
           ),
@@ -38,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
           // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              height: 147,
+              height: 170,
               width: double.infinity,
               child: Align(
                   child: Row(
@@ -50,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                     scale: 2,
                   ),
                   const Padding(
-                    padding: const EdgeInsets.only(top: 38.0),
+                    padding:  EdgeInsets.only(top: 38.0),
                     child: Text(
                       'NeedFood',
                       style: TextStyle(
@@ -61,8 +90,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               )),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
+                  fit: BoxFit.cover,
                   image: AssetImage("assets/images/Rectangle 1.png"),
                 ),
               ),
@@ -74,18 +104,28 @@ class _LoginPageState extends State<LoginPage> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      SizedBox(height: 150),
-                      Text(
-                        "Login",
-                        style: TextStyle(
-                            fontSize: 28, fontWeight: FontWeight.bold),
+                      const SizedBox(height: 150),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 15.0),
+                        child: Text(
+                          "Login",
+                          style: TextStyle(
+                              fontSize: 28, fontWeight: FontWeight.bold),
+                        ),
                       ),
                       Container(
                         height: 80,
                         padding:
                             const EdgeInsets.only(top: 35, left: 20, right: 20),
                         child: TextField(
-                          decoration: InputDecoration(
+                          keyboardType: Keyboar,
+
+                          // controller: _controller,
+                          onChanged: (text){
+
+                            print(text);
+                          },
+                          decoration:  const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: "Login",
                           ),
@@ -98,8 +138,15 @@ class _LoginPageState extends State<LoginPage> {
                           left: 20,
                           right: 20,
                         ),
-                        child: const TextField(
-                          decoration: InputDecoration(
+                        child:  TextField(
+                          controller: _controller,
+
+                          // onChanged: (text){
+                          //   text = signin.password;
+                          //   print(signin.password);
+                          // },
+                          obscureText: true,
+                          decoration:  const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: "Enter your password",
                           ),
@@ -110,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: TextButton(
                           onPressed: () {},
                           child: const Text(
-                            "Fogot password ?",
+                            "Forgot password ?",
                             style: TextStyle(color: Colors.grey, fontSize: 16),
                           ),
                         ),
@@ -118,7 +165,13 @@ class _LoginPageState extends State<LoginPage> {
                       SizedBox(
                         width: 150,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                    const HomePage()));
+                          },
                           child: const Text("Login"),
                         ),
                       ),
@@ -142,7 +195,7 @@ class _LoginPageState extends State<LoginPage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (BuildContext context) =>
-                                              SignUpPage()));
+                                          const SignUpPage()));
                                 },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
