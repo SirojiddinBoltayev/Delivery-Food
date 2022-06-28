@@ -1,8 +1,5 @@
-import 'dart:html';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:food_shop/home_page.dart';
 
 // import 'package:food_shop/model/login_data.dart';
@@ -48,6 +45,9 @@ class _LoginPageState extends State<LoginPage> {
     print(_controller.text);
 
   }
+  bool _isPasswordHide = true;
+  bool _isVisibilityHide = false;
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size.width;
@@ -105,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     children: [
                       const SizedBox(height: 150),
-                      const Padding(
+                       const Padding(
                         padding: EdgeInsets.only(top: 15.0),
                         child: Text(
                           "Login",
@@ -118,14 +118,14 @@ class _LoginPageState extends State<LoginPage> {
                         padding:
                             const EdgeInsets.only(top: 35, left: 20, right: 20),
                         child: TextField(
-                          keyboardType: Keyboar,
+                        textInputAction: TextInputAction.next,
 
                           // controller: _controller,
                           onChanged: (text){
 
                             print(text);
                           },
-                          decoration:  const InputDecoration(
+                          decoration:   const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: "Login",
                           ),
@@ -139,17 +139,34 @@ class _LoginPageState extends State<LoginPage> {
                           right: 20,
                         ),
                         child:  TextField(
+                          textInputAction: TextInputAction.done,
                           controller: _controller,
 
-                          // onChanged: (text){
-                          //   text = signin.password;
-                          //   print(signin.password);
-                          // },
-                          obscureText: true,
-                          decoration:  const InputDecoration(
-                            border: OutlineInputBorder(),
+                          onChanged: (text){
+                            setState((){
+                              _controller.text.isEmpty ?
+                              _isVisibilityHide = false
+                              : _isVisibilityHide = true;
+                            });
+                          },
+                          obscureText: _isPasswordHide,
+                          decoration:   InputDecoration(
+                            border:const OutlineInputBorder(),
                             labelText: "Enter your password",
+                          suffixIcon: _isVisibilityHide ? IconButton(
+                            icon: _isPasswordHide ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
+
+                            onPressed: (){
+                              setState((){
+                                _isPasswordHide = !_isPasswordHide;
+
+                              });
+
+                            },
+
+                          ) : Text(""),
                           ),
+
                         ),
                       ),
                       Padding(
